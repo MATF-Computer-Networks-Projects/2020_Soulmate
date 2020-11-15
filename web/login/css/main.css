@@ -183,8 +183,8 @@ h6 {
   padding-top: 100px;
 }
 
-.p-t-40 {
-  padding-top: 40px;
+.p-t-180 {
+  padding-top: 180px;
 }
 
 .p-t-20 {
@@ -197,11 +197,19 @@ h6 {
 }
 
 .p-t-10 {
+  padding-top: 0px;
+}
+
+.p-t-10 {
   padding-top: 10px;
 }
 
 .p-t-30 {
   padding-top: 30px;
+}
+
+.p-t-30 {
+  padding-top: 50px;
 }
 
 .p-b-100 {
@@ -270,6 +278,12 @@ h6 {
   border-radius: 20px;
 }
 
+.btn--pill1 {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 30px;
+  border-radius: 20px;
+}
+
 .btn--green {
   background: #57b846;
 }
@@ -277,7 +291,6 @@ h6 {
 .btn--blue {
   background: #2c6ed5;
 }
-
 
 .btn--green:hover {
   background: #4dae3c;
@@ -523,7 +536,7 @@ input {
 }
 
 .card-3 .card-heading {
-  background: url("../images/bg-heading-03.jpg") top left/cover no-repeat;
+  background: url("../images/handholding.jpg") top left/cover no-repeat;
   display: table-cell;
   width: 50%;
 }

@@ -82,6 +82,6 @@ function showPreview(event){
   }
 }
 
-function redirect() {
-    window.location.href = "../login/index.html";
+function redirect(){
+    window.location.href = "../signup/index.html"
 }
