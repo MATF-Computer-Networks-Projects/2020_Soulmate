@@ -68,7 +68,7 @@
                         <div class="input-group">
                             <input class="input--style-3" type="text" placeholder="Phone" name="phone">
                         </div>
-                        <div class="mb-4">
+                       <!-- <div class="mb-4">
                             <img src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
                               class="rounded-circle z-depth-1-half avatar-pic" alt="example placeholder avatar">
                           </div>
@@ -77,7 +77,19 @@
                               <span>Add your photo</span>
                               <input type="file">
                             </div>
-                          </div>
+                          </div> -->
+
+                        <div class="center">
+                            <div class="form-input">
+                                <div class="preview">
+                                    <img id="file-ip-1-preview">
+                                </div>
+                                <span style="color:white" id="nesto">Add your photo</span>
+                                <label for="file-ip-1">Upload Image</label>
+                                <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
+
+                            </div>
+                        </div>
                         <div class="p-t-10">
                             <button class="btn btn--pill btn--green" type="submit">Create account</button>
                         </div>
