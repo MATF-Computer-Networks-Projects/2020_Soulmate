@@ -2,7 +2,7 @@ package Server;
 
 import java.io.File;
 
-public class GlobalData {
+class GlobalData {
     static final File WEB_ROOT = new File("web");
     static final String DEFAULT_FILE = "signup/index.html";
     static final String FILE_NOT_FOUND = "errors/404.html";

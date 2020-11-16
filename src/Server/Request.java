@@ -1,9 +1,12 @@
 package Server;
 
+/* Encapsulates parsed request body */
 public class Request {
-    private String method;
-    private String fileRequested;
-    private String contentData;
+
+    private final String method;
+    private final String fileRequested;
+    private final String contentData;
+
 
     public Request(String method
                  , String fileRequested
@@ -13,13 +16,16 @@ public class Request {
         this.contentData = contentData;
     }
 
+
     public String getMethod() {
         return method;
     }
 
+
     public String getFileRequested() {
         return fileRequested;
     }
+
 
     public String getContentData() {
         return contentData;

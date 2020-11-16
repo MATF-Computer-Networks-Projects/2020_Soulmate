@@ -7,18 +7,29 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.StringTokenizer;
 
+
+/* Communicator between server and client */
 public class Mediator {
-    private BufferedReader in;
-    private PrintWriter out;
-    private BufferedOutputStream dataOut;
+
+    private final BufferedReader in;
+    private final PrintWriter out;
+    private final BufferedOutputStream dataOut;
+
+
 
     public Mediator(BufferedReader in
                   , PrintWriter out
-                  , BufferedOutputStream dataOut) {
+                  , BufferedOutputStream dataOut) throws NullPointerException {
+
+        if(in == null || out == null || dataOut == null)
+            throw new NullPointerException("Stream null");
+
         this.in = in;
         this.out = out;
         this.dataOut = dataOut;
     }
+
+
 
     public Request parseRequest() throws IOException {
         String input = in.readLine();
@@ -34,12 +45,13 @@ public class Mediator {
         String method = parser.nextToken().toUpperCase();
         String fileRequested = parser.nextToken().toLowerCase();
 
+        // Will be reimplemented in future
         if(!method.equals("POST")) {
             return new Request(method, fileRequested, null);
         }
 
+        // parsing length of request body
         int contentLength = 0;
-
         while(!input.isEmpty()) {
             if(input.startsWith("Content-Length")) {
                 contentLength = Integer.parseInt(input.split(" ")[1]);
@@ -55,8 +67,10 @@ public class Mediator {
         return new Request(method, fileRequested, content.toString());
     }
 
+
+
     public void respond(String content
-                             , byte[] fileData) throws IOException{
+                      , byte[] fileData) throws IOException{
 
         int fileLength = fileData.length;
 
@@ -70,6 +84,7 @@ public class Mediator {
         flushDataOut();
     }
 
+    // Encapsulating stream methods
     public void println(String s) {
         out.println(s);
     }
@@ -88,4 +103,5 @@ public class Mediator {
     public void flushDataOut() throws IOException {
         dataOut.flush();
     }
+
 }

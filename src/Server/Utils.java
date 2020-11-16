@@ -1,12 +1,12 @@
 package Server;
 
 import java.io.*;
-import java.util.Date;
 
 import static Server.GlobalData.*;
 
 public class Utils {
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static byte[] readFileData(File file, int fileLength) throws IOException {
         FileInputStream fileIn = null;
         byte[] fileData = new byte[fileLength];

@@ -3,21 +3,21 @@ package Server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.StringTokenizer;
+import java.util.Objects;
 
 import static Server.GlobalData.*;
 import static Server.Utils.*;
 
 public class Server implements Runnable{
 
-    private Socket socket;
+    private final Socket socket;
 
     Server(Socket s) {
         this.socket = s;
     }
 
+    @SuppressWarnings("InfiniteLoopStatement")
     public static void startServer() throws IOException {
         ServerSocket ss = new ServerSocket(PORT);
         System.out.println("Listening on port:" + PORT);
@@ -70,12 +70,16 @@ public class Server implements Runnable{
 
         } catch (IOException e) {
             System.err.println("Server error : " + e);
-        } finally {
+
+        } finally { // Closing opened streams
+
             try {
-                in.close();
-                out.close();
-                dataOut.close();
+
+                Objects.requireNonNull(in).close();
+                Objects.requireNonNull(out).close();
+                Objects.requireNonNull(dataOut).close();
                 socket.close();
+
             } catch (Exception e) {
                 System.err.println("Error closing stream : " + e.getMessage());
             }

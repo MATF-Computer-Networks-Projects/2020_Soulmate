@@ -1,9 +1,7 @@
 package Server;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import static Server.GlobalData.*;
 import static Server.Utils.*;
@@ -44,7 +42,9 @@ public class MethodHandler{
         }
     }
 
-    /* Request methods */
+     /*==================================== */
+    /* ========= Request methods ========= */
+   /*==================================== */
 
     private static void methodGET(File file
                                 , Mediator mediator) throws IOException {
@@ -52,7 +52,7 @@ public class MethodHandler{
         int fileLength = (int) file.length();
         String content = getContentType(file.getName());
 
-        byte[] fileData = readFileData(file, (int)file.length());
+        byte[] fileData = readFileData(file, fileLength);
 
         mediator.println("HTTP/1.1 200 OK");
         mediator.respond(content, fileData);
@@ -65,6 +65,7 @@ public class MethodHandler{
 
         if(file.getParent().endsWith("signup")
                 || file.getParent().endsWith("login")) {
+            // Using because of behaviour
             methodGET(new File(WEB_ROOT, "chat/chat.html"), mediator);
             return;
         }
@@ -73,6 +74,9 @@ public class MethodHandler{
         File f = new File(WEB_ROOT, METHOD_NOT_SUPPORTED);
         mediator.respond("text/html", readFileData(f, (int)f.length()));
     }
+
+
+
 
     /* =============== UTIL PRIVATE METHODS ======================= */
 
