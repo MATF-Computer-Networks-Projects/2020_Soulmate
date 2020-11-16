@@ -1,8 +1,10 @@
-package Server;
+package server;
+
+import server.core.Mediator;
 
 import java.io.*;
 
-import static Server.GlobalData.*;
+import static server.GlobalData.*;
 
 public class Utils {
 
