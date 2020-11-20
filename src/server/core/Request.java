@@ -16,6 +16,9 @@ public class Request {
         this.contentData = contentData;
     }
 
+    public Request(String method, String fileRequested) {
+        this(method, fileRequested, null);
+    }
 
     public String getMethod() {
         return method;
