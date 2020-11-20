@@ -1,0 +1,236 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,300);
+
+* {
+  box-sizing: border-box;
+}
+
+.font-robo {
+    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+}
+  
+.font-poppins {
+    font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+background: #3498db;
+  font-family: 'Open Sans', sans-serif;
+  color: #FFFFFF;
+}
+
+#wrapper{ 
+  width: 391px;
+  margin: 0px auto;
+}
+
+h1 {
+  font-weight: 300;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  text-align: center;
+  margin: 0px;
+  padding: 20px;
+  user-select: none;
+}
+
+h3 {
+  font-weight: 300;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  margin-top: 15px;
+  width: 100%;
+  padding: 8px 0 8px 0;
+  float: left;
+}
+
+
+.module {
+  width: 391px;
+  margin: 20px 0 20px 0;
+  border: 1px solid white;
+  border-radius: 40px;
+}
+
+ .btcf:after {
+            content:"";
+            display:table;
+            clear:both;
+ }
+
+p{
+  font-weight: 300;
+  text-align: center;
+}
+
+.photo-wrap {
+  width: 280px;
+  height: 360px;
+  border: 1px solid white;
+  animation: reset 3000ms ease-in-out;
+  border-radius: 20px;
+  margin: 0 0 80px 55px;
+  padding: 10px;
+}
+
+.right {
+  float: right;
+}
+
+.photo {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.photo-wrap:hover{
+  animation: turn 600ms ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.photo:active {
+  animation: dislike 600ms ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes turn {
+  0% {transform: rotate(0deg);}
+  40% {transform: rotate(9deg);}
+  100% {transform: rotate(5deg);}
+}
+
+@keyframes reset {
+  0% {transform: rotate(5deg);}
+  40% {transform: rotate(-3deg);}
+  100% {transform: rotate(0deg);}
+}
+
+@keyframes dislike {
+  0%{transform: scale(1);}
+  55%{ transform: scale(0.8) rotate(-4deg);}
+  65%{ transform: scale(0.8) rotate(-4deg);}
+  100%{transform: scale(0) rotate(-6deg);}
+}
+
+.match {
+  animation: match 700ms ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes match {
+  from {transform:rotateX(0deg);}
+  to {transform:rotateX(180deg);opacity: 0;margin-left: 100%;}
+}
+
+.button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.button {
+  user-select: none;
+  transition: all 200ms;
+  cursor: pointer;
+}
+
+.button:active {
+  transform: scale(0.9);
+  transition: all 200ms;
+}
+
+.love {
+  background: url("https://i.imgur.com/rHHDxoS.png") no-repeat;
+  background-position: center;
+}
+
+.love:after {
+  content: "It's a match!";
+  width: 100%;
+  display: block;
+  text-align: center;
+  position: relative;
+  top: -210px;
+  font-weight: 300;
+  font-size: 21px;
+  Z-index: -1;
+}
+
+.like {
+    height: 50px;
+    width: 60px;
+}
+
+.card-3 {
+    background: #000;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-shadow: 10px 8px 20px 10px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 10px 8px 20px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 10px 8px 20px 10px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    display: table;
+    padding-left: 10%;
+    padding-right: 60%;
+    margin-top: 50px;
+  }
+
+.p-t-40 {
+  position: relative;
+  left: 120%;
+  top: 30%;
+}
+
+
+.btn1 {
+  display: inline-block;
+  line-height: 25px;
+  padding: 0 18px;
+  font-family: Poppins, Arial, "Helvetica Neue", sans-serif;
+  cursor: pointer;
+  color: #fff;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  font-size: 13px;
+
+
+}
+
+
+.btn2 {
+    display: inline-block;
+    line-height: 25px;
+    padding: 0 25px;
+    font-family: Poppins, Arial, "Helvetica Neue", sans-serif;
+    cursor: pointer;
+    color: #fff;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    font-size: 13px;
+  
+  
+}
+  
+
+
+
+.btn--pill {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+  
+
+.btn--blue {
+    background: #3498db;
+}
+  
