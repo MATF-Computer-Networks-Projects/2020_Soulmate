@@ -1,10 +1,11 @@
-package Server;
+package server.core;
 
 import java.io.File;
 import java.io.IOException;
 
-import static Server.GlobalData.*;
-import static Server.Utils.*;
+import static server.GlobalData.*;
+import static server.Utils.*;
+
 
 public class MethodHandler{
 

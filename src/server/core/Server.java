@@ -1,4 +1,4 @@
-package Server;
+package server.core;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -6,8 +6,8 @@ import java.net.Socket;
 import java.util.Date;
 import java.util.Objects;
 
-import static Server.GlobalData.*;
-import static Server.Utils.*;
+import static server.GlobalData.*;
+import static server.Utils.*;
 
 public class Server implements Runnable{
 

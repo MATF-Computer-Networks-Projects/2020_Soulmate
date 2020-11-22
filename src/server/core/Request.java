@@ -1,4 +1,4 @@
-package Server;
+package server.core;
 
 /* Encapsulates parsed request body */
 public class Request {
