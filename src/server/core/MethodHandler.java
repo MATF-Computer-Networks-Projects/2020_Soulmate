@@ -1,5 +1,7 @@
 package server.core;
 
+import server.form.User;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -62,7 +64,9 @@ public class MethodHandler{
     private static void methodPOST(File file
                                  , String contentData
                                  , Mediator mediator) throws IOException {
-        System.out.println(contentData);
+
+        User usr = new User(contentData);
+        usr.toString();
 
         if(file.getParent().endsWith("signup")
                 || file.getParent().endsWith("login")) {
