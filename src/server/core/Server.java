@@ -25,6 +25,8 @@ public class Server implements Runnable{
     @SuppressWarnings("InfiniteLoopStatement")
     public static void startServer() throws IOException {
 
+        // System.setProperty("jdk.tls.server.protocols", "TLSv1.2");
+
         System.setProperty("javax.net.ssl.keyStore", KS_PATH);
         System.setProperty("javax.net.ssl.keyStorePassword", KS_PASS);
         System.setProperty("javax.net.ssl.trustStore", TS_PATH);
@@ -32,7 +34,7 @@ public class Server implements Runnable{
 
         SSLServerSocketFactory factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
         SSLServerSocket ss = (SSLServerSocket) factory.createServerSocket(PORT);
-        ss.setNeedClientAuth(true);
+        // ss.setNeedClientAuth(true);
 
 
         String[] supported = ss.getSupportedCipherSuites();
@@ -105,8 +107,12 @@ public class Server implements Runnable{
                 System.err.println("Error with file not found exception : " + e.getMessage());
             }
 
+
+        } catch (SSLHandshakeException e) {
+            ; // TODO SSLHandshakeException
         } catch (IOException e) {
-            System.err.println("Server error : " + e);
+            // System.err.println("Server error : " + e);
+            e.printStackTrace();
 
         } finally { // Closing opened streams
 
