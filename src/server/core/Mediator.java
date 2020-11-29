@@ -47,7 +47,7 @@ public class Mediator {
 
         // Will be reimplemented in future
         if(!method.equals("POST")) {
-            return new Request(method, fileRequested, null);
+            return new Request(method, fileRequested);
         }
 
         // parsing length of request body
