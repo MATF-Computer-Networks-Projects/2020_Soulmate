@@ -16,7 +16,7 @@ public class User {
     private final Date birthdate;
     private final Gender gender;
     private final Interest interest;
-    public final String email;
+    private final String email;
     private final String password;  // TODO will be independent class
     private final String phone;
     // TODO image missing
@@ -43,7 +43,7 @@ public class User {
         int i = 0;
         for (String pair: pairs){
             int idx = pair.indexOf("=");
-            System.out.println(pair.substring(idx+1));
+            //System.out.println(pair.substring(idx+1));
             userInfo[i] = pair.substring(idx+1);
             i++;
         }
@@ -76,14 +76,13 @@ public class User {
 
     @Override
     public String toString() {
-        String result = "Name: " + this.name + "\n" +
+         return "Name: " + this.name + "\n" +
                 "Birthday: " + this.birthdate + "\n" +
                 "Gender: " + this.gender + "\n" +
                 "Interested in: " + this.interest + "\n" +
                 "Email: " + this.email + "\n" +
                 "Password: " + this.password + "\n" +
                 "Phone: " + this.phone + "\n";
-        System.out.println(result); //DEBUG PRINT
-        return result;
+
     }
 }

@@ -1,6 +1,6 @@
 package server.core;
 
-import server.form.User;
+import server.form.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,9 +64,9 @@ public class MethodHandler{
     private static void methodPOST(File file
                                  , String contentData
                                  , Mediator mediator) throws IOException {
-
+        //TODO export to file
         User usr = new User(contentData);
-        usr.toString();
+        System.out.println(usr);
 
         if(file.getParent().endsWith("signup")
                 || file.getParent().endsWith("login")) {
