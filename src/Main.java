@@ -1,3 +1,4 @@
+import server.Utils;
 import server.core.Server;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Failed to start server");
             e.printStackTrace();
+
         }
     }
 }

@@ -66,6 +66,7 @@ public class MethodHandler{
                                  , Mediator mediator) throws IOException {
         //TODO export to file
         User usr = new User(contentData);
+        writeJSONtoFile(usr);
         System.out.println(usr);
 
         if(file.getParent().endsWith("signup")

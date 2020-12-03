@@ -21,6 +21,34 @@ public class User {
     private final String phone;
     // TODO image missing
 
+    public String getName() {
+        return name;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public Interest getInterest() {
+        return interest;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     public User(String name
               , Date birthdate, Gender gender
               , Interest interest, String email
