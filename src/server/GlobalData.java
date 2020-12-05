@@ -10,8 +10,8 @@ public class GlobalData {
     public static final int PORT = 5252;
     public static final boolean verbose = true;  // Debug switch
 
-    public static final String KS_PATH = "keystore.jks";
+    public static final String KS_PATH = "config/keystore.jks";
     public static final String KS_PASS = "soulmate";
-    public static final String TS_PATH = "cacerts.jks";
+    public static final String TS_PATH = "config/cacerts.jks";
     public static final String TS_PASS = "soulmate";
 }

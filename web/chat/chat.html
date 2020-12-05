@@ -7,8 +7,6 @@
 	<link rel="stylesheet" type="text/css" href="../chat/bootstrap.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../chat/chat.css">
-	<script src="../chat/jquery.min.js"></script>
-    <script type="text/javascript" src="../chat/chat.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -97,7 +95,7 @@
 				</span>
 			</div>
 			</div>
-			<div class="chat-panel">
+			<div id="chat-panel">
 			<div class="row no-gutters">
 				<div class="col-md-3">
 				<div class="chat-bubble chat-bubble--left">
@@ -147,19 +145,27 @@
 				</div>
 				</div>
 			</div>
+			</div>
 			<div class="row">
 				<div class="col-12">
-				<div class="chat-box-tray">
-					<i class="material-icons">sentiment_very_satisfied</i>
-					<input type="text" placeholder="Type your message here...">
-					<i class="material-icons">mic</i>
-					<i class="material-icons">send</i>
+					<div class="chat-box-tray">
+						<i class="material-icons">sentiment_very_satisfied</i>
+						<input id="textfield" type="text" placeholder="Type your message here...">
+						<button class="btn-send">
+							<i class="material-icons">mic</i>
+						</button>
+						<button class="btn-send">
+							<i class="material-icons">send</i>
+						</button>
+					</div>
 				</div>
-				</div>
-			</div>
 			</div>
 		</div>
 		</div>
 	</div>
+
+	<script src="../chat/jquery.min.js"></script>
+	<script type="text/javascript" src="../chat/chat.js"></script>
+
 </body>
 </html>

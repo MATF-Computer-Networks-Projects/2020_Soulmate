@@ -1,5 +1,8 @@
 package server;
 
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import server.core.Mediator;
 
 import java.io.*;
@@ -8,6 +11,7 @@ import java.io.IOException;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.jsoup.*;
 import server.form.User;
 
 import static server.GlobalData.*;
@@ -79,4 +83,17 @@ public class Utils {
         }
     }
 
+
+    public static String appendMessageSender(File file, String message) {
+
+        String newMsg = "<div class=\"row no-gutters\">\n" +
+                "\t\t\t\t<div class=\"col-md-3 offset-md-9\">\n" +
+                "\t\t\t\t<div class=\"chat-bubble chat-bubble--right\">\n" +
+                "\t\t\t\t\t" + message + "\n" +
+                "\t\t\t\t</div>\n" +
+                "\t\t\t\t</div>\n" +
+                "\t\t\t</div>";
+
+        return newMsg;
+    }
 }

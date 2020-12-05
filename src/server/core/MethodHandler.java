@@ -64,15 +64,36 @@ public class MethodHandler{
     private static void methodPOST(File file
                                  , String contentData
                                  , Mediator mediator) throws IOException {
-        //TODO export to file
-        User usr = new User(contentData);
-        writeJSONtoFile(usr);
-        System.out.println(usr);
 
-        if(file.getParent().endsWith("signup")
-                || file.getParent().endsWith("login")) {
-            // Using because of behaviour
+
+        if(file.getParent().endsWith("signup")) {
+
+            User usr = new User(contentData);
+            writeJSONtoFile(usr);
+            System.out.println(usr);
+
+            // Using GET because of behaviour
             methodGET(new File(WEB_ROOT, "chat/chat.html"), mediator);
+            return;
+        }
+
+        if(file.getParent().endsWith("login")) {
+
+            // TODO find user in file
+
+            // Using GET because of behaviour
+            methodGET(new File(WEB_ROOT, "chat/chat.html"), mediator);
+            return;
+        }
+
+        if(file.getParent().endsWith("chat")) {
+
+            String content = getContentType(file.getName());
+            byte[] fileData = appendMessageSender(file, contentData).getBytes("UTF-8");
+
+            mediator.println("HTTP/1.1 200 OK");
+            mediator.respond(content, fileData);
+
             return;
         }
 
