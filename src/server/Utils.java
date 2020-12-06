@@ -1,8 +1,5 @@
 package server;
 
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import server.core.Mediator;
 
 import java.io.*;
@@ -11,7 +8,6 @@ import java.io.IOException;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.jsoup.*;
 import server.form.User;
 
 import static server.GlobalData.*;
