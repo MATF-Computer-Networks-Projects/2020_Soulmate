@@ -54,40 +54,62 @@ public class Utils {
     {
         JSONParser jsonParser = new JSONParser();
         JSONArray userList = null;
+        File loginFile = null;
+        FileReader reader = null;
+        FileWriter file = null;
 
-        try (FileReader reader = new FileReader("login.json")) {
-            //Read JSON file
+        try {
+            loginFile = new File("login.json");
+
+
+            // If does not exist, create json file with []
+            // because it won't make it by itself
+            if(!loginFile.exists())
+            {
+                loginFile.createNewFile();
+                FileWriter tmpWriter = new FileWriter(loginFile);
+                tmpWriter.write("[]");
+                tmpWriter.close();
+            }
+
+
+            reader = new FileReader(loginFile);
             userList = (JSONArray) jsonParser.parse(reader);
-        } catch (ParseException | IOException e) {
-            e.printStackTrace();
-        }
+
+            JSONObject loginDetails = new JSONObject();
+            loginDetails.put("Name", user.getName());
+            loginDetails.put("Birthday", user.getBirthdate() + "");
+            loginDetails.put("Gender", user.getGender() + "");
+            loginDetails.put("Interest", user.getInterest() + "");
+            loginDetails.put("Password", user.getPassword());
+            loginDetails.put("Phone", user.getPhone());
 
 
-        JSONObject loginDetails = new JSONObject();
-        loginDetails.put("Name", user.getName());
-        loginDetails.put("Birthday", user.getBirthdate() + "");
-        loginDetails.put("Gender", user.getGender() + "");
-        loginDetails.put("Interest", user.getInterest() + "");
-        loginDetails.put("Password", user.getPassword());
-        loginDetails.put("Phone", user.getPhone());
+            JSONObject loginObject = new JSONObject();
+            loginObject.put(user.getEmail(), loginDetails);
 
 
-        JSONObject loginObject = new JSONObject();
-        loginObject.put(user.getEmail(), loginDetails);
+            //Add users to list
+
+            userList.add(loginObject);
 
 
-        //Add users to list
-
-        userList.add(loginObject);
-
-        //Write JSON file
-        try (FileWriter file = new FileWriter("login.json")) {
+            //Write JSON file
+            file = new FileWriter(loginFile);
 
             file.write(userList.toJSONString());
             file.flush();
 
-        } catch (IOException e) {
+        } catch (ParseException | IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                assert reader != null && file != null;
+                reader.close();
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
