@@ -44,8 +44,7 @@ public class Mediator {
         StringTokenizer parser = new StringTokenizer(input);
         String method = parser.nextToken().toUpperCase();
         String fileRequested = parser.nextToken().toLowerCase();
-
-        // Will be reimplemented in future
+        
         if(!method.equals("POST")) {
             return new Request(method, fileRequested);
         }

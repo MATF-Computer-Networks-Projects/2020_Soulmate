@@ -1,9 +1,46 @@
-// Video tutorial/codealong here: https://youtu.be/fCpw5i_2IYU
 
-$( '.friend-drawer--onhover' ).on( 'click',  function() {
-  
-  $( '.chat-bubble' ).hide('slow').show('slow');
-  
+// Switching users chat
+$( '.friend-drawer--onhover' ).on( 'click', ( event ) => {
+
+    // let jqxhr = $.post( 'chat/chat.html',  )
+
+    let user = event.currentTarget.children[1].children[0].textContent;
+    $( '#currentUser' ).empty().append(user);
+
+    $( '.chat-bubble' ).hide('slow').show('slow');
 });
 
-// Video tutorial/codealong here: https://youtu.be/fCpw5i_2IYU
+// Choosing user
+//
+
+// Send button
+$( '.btn-send' ).on( 'click', ()=> {
+
+    let inputText = $( '#textfield' ).val();
+    if( inputText === "" ) {
+        return;
+    }
+
+    let user = $( '#currentUser' ).text();
+
+    let jqxhr = $.post( 'chat/chat.html', { User : user, msg : inputText})
+
+        .done( ( data ) => {
+            $( '#chat-panel' ).append(data);
+        })
+
+        .fail( () => {
+            alert( "Failed to send message" );
+        })
+
+        .always( () => {
+            console.log( "finished" );
+        });
+
+
+        // Set another completion function for the request above
+        jqxhr.always( () => {
+            console.log("second finished");
+        });
+})
+

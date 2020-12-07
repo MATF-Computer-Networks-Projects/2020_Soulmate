@@ -1,10 +1,14 @@
 package server.core;
 
+import server.form.*;
+
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import static server.GlobalData.*;
 import static server.Utils.*;
+
 
 public class MethodHandler{
 
@@ -12,6 +16,7 @@ public class MethodHandler{
 
         String method = request.getMethod();
         String fileRequested = request.getFileRequested();
+        String address = request.getAddress();
 
         if ( checkMethod(method, mediator) ) {
 
@@ -28,7 +33,7 @@ public class MethodHandler{
                     break;
 
                 case "POST":
-                    methodPOST(file, request.getContentData(), mediator);
+                    methodPOST(file, address, request.getContentData(), mediator);
                     break;
 
                 default:
@@ -59,14 +64,58 @@ public class MethodHandler{
     }
 
     private static void methodPOST(File file
+                                 , String address
                                  , String contentData
                                  , Mediator mediator) throws IOException {
-        System.out.println(contentData);
 
-        if(file.getParent().endsWith("signup")
-                || file.getParent().endsWith("login")) {
-            // Using because of behaviour
+
+        if(file.getParent().endsWith("signup")) {
+
+            User usr = new User(contentData);
+            writeJSONtoFile(usr);
+            System.out.println(usr);
+
+            // Using GET because of behaviour
             methodGET(new File(WEB_ROOT, "chat/chat.html"), mediator);
+
+            Server.activeUsers.addUser(usr, address);
+            return;
+        }
+
+        if(file.getParent().endsWith("login")) {
+
+            String[] pairs = contentData.split("&");
+            String mail = java.net.URLDecoder.decode(pairs[0].split("=")[1], "UTF-8");
+            String password = pairs[1].split("=")[1];
+
+
+
+            User user = loadUserFromJSON(mail, password);
+
+            if(user == null)
+            {
+                System.err.println("User not found: " + mail + "  :  " + password);
+                methodGET(new File(WEB_ROOT, USER_NOT_FOUND), mediator);
+            }
+
+
+            // Using GET because of behaviour
+            methodGET(new File(WEB_ROOT, "chat/chat.html"), mediator);
+
+            return;
+        }
+
+        if(file.getParent().endsWith("chat")) {
+
+            Message msg = new Message(contentData);
+            String content = getContentType(file.getName());
+            byte[] fileData = appendMessageSender(file, msg.getMessage()).getBytes("UTF-8");
+
+            // appendMessageToReceiver
+
+            mediator.println("HTTP/1.1 200 OK");
+            mediator.respond(content, fileData);
+
             return;
         }
 

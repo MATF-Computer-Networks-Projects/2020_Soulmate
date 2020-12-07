@@ -2,14 +2,10 @@ package server.core;
 
 import javax.net.ssl.*;
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.security.*;
-import java.security.cert.CertificateException;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Objects;
 
 import static server.GlobalData.*;
 import static server.Utils.*;
@@ -17,6 +13,7 @@ import static server.Utils.*;
 public class Server implements Runnable{
 
     private final Socket socket;
+    public static ActiveUsers activeUsers = new ActiveUsers();
 
     Server(Socket s) {
         this.socket = s;
@@ -25,16 +22,16 @@ public class Server implements Runnable{
     @SuppressWarnings("InfiniteLoopStatement")
     public static void startServer() throws IOException {
 
-        // System.setProperty("jdk.tls.server.protocols", "TLSv1.2");
-
+        // Initializing keys
         System.setProperty("javax.net.ssl.keyStore", KS_PATH);
         System.setProperty("javax.net.ssl.keyStorePassword", KS_PASS);
         System.setProperty("javax.net.ssl.trustStore", TS_PATH);
         System.setProperty("javax.net.ssl.trustStorePassword", TS_PASS);
 
+
+        // Creating secure server
         SSLServerSocketFactory factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
         SSLServerSocket ss = (SSLServerSocket) factory.createServerSocket(PORT);
-        // ss.setNeedClientAuth(true);
 
 
         String[] supported = ss.getSupportedCipherSuites();
@@ -52,11 +49,8 @@ public class Server implements Runnable{
         String[] newEnabled = new String[oldEnabled.length + numAnonCipherSuitesSupported];
         System.arraycopy(oldEnabled, 0, newEnabled, 0, oldEnabled.length);
         System.arraycopy(anonCipherSuitesSupported, 0, newEnabled, oldEnabled.length, numAnonCipherSuitesSupported);
-
         ss.setEnabledCipherSuites(newEnabled);
 
-
-        //ServerSocket ss = new ServerSocket(PORT);
         System.out.println("Listening on port:" + PORT);
 
         while(true) {
@@ -72,10 +66,13 @@ public class Server implements Runnable{
         }
     }
 
+
+
     @Override
     public void run() {
 
-        System.out.println("connected - " + socket.getRemoteSocketAddress());
+        String address = socket.getRemoteSocketAddress().toString();
+        System.out.println("connected - " + address);
 
         BufferedReader in = null;
         PrintWriter out = null;
@@ -90,14 +87,16 @@ public class Server implements Runnable{
             Mediator mediator = new Mediator(in, out, dataOut);
 
             /* Parsing input */
-            Request req = mediator.parseRequest();
-            if(req == null)
+            Request request = mediator.parseRequest();
+            if(request == null)
                 return;
-
-            fileRequested = req.getFileRequested();
+            fileRequested = request.getFileRequested();
+            request.setAddress(address);
 
             /* Method handling */
-            MethodHandler.handle(req, mediator);
+            MethodHandler.handle(request, mediator);
+
+            // MAKE A THREAD FOR REST SERVING
 
 
         } catch (FileNotFoundException fnfe) {
@@ -109,9 +108,11 @@ public class Server implements Runnable{
 
 
         } catch (SSLHandshakeException e) {
-            ; // TODO SSLHandshakeException
+
+            ; // Will be handled in future
+
         } catch (IOException e) {
-            // System.err.println("Server error : " + e);
+            System.err.println("Server error : " + e);
             e.printStackTrace();
 
         } finally { // Closing opened streams
