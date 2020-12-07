@@ -1,11 +1,16 @@
 package server.core;
 
+import server.form.Message;
+
 import javax.net.ssl.*;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.SynchronousQueue;
 
 import static server.GlobalData.*;
 import static server.Utils.*;
@@ -67,6 +72,7 @@ public class Server implements Runnable{
     }
 
 
+    final public static LinkedList<Message> messages = new LinkedList<Message>();
 
     @Override
     public void run() {
@@ -78,6 +84,8 @@ public class Server implements Runnable{
         PrintWriter out = null;
         BufferedOutputStream dataOut = null;
         String fileRequested = null;
+
+
 
         try {
 
@@ -96,7 +104,8 @@ public class Server implements Runnable{
             /* Method handling */
             MethodHandler.handle(request, mediator);
 
-            // MAKE A THREAD FOR REST SERVING
+
+            // }
 
 
         } catch (FileNotFoundException fnfe) {

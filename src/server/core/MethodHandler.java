@@ -108,10 +108,25 @@ public class MethodHandler{
         if(file.getParent().endsWith("chat")) {
 
             Message msg = new Message(contentData);
-            String content = getContentType(file.getName());
-            byte[] fileData = appendMessageSender(file, msg.getMessage()).getBytes("UTF-8");
 
-            // appendMessageToReceiver
+            Server.messages.add(msg);
+
+            String content = getContentType(file.getName());
+            StringBuilder allMsgs = new StringBuilder();
+
+            synchronized (Server.messages) {
+                for(int i = 0; i < Server.messages.size(); i++) {
+                    Message m = Server.messages.get(i);
+                    if(m.getUser().equals(msg.getUser()))
+                        continue;
+
+                    allMsgs.append("\n" + appendMessageReceiver(m.getMessage()) );
+                }
+            }
+
+            allMsgs.append("\n" + appendMessageSender(msg.getMessage()) );
+
+            byte[] fileData = allMsgs.toString().getBytes();
 
             mediator.println("HTTP/1.1 200 OK");
             mediator.respond(content, fileData);

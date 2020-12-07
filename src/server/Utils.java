@@ -131,11 +131,23 @@ public class Utils {
         return null;
     }
 
-    public static String appendMessageSender(File file, String message) {
+    public static String appendMessageSender(String message) {
 
         return "<div class=\"row no-gutters\">\n" +
                 "\t\t\t\t<div class=\"col-md-3 offset-md-9\">\n" +
                 "\t\t\t\t<div class=\"chat-bubble chat-bubble--right\">\n" +
+                "\t\t\t\t\t" + message + "\n" +
+                "\t\t\t\t</div>\n" +
+                "\t\t\t\t</div>\n" +
+                "\t\t\t</div>";
+
+    }
+
+    public static String appendMessageReceiver(String message) {
+
+        return "<div class=\"row no-gutters\">\n" +
+                "\t\t\t\t<div class=\"col-md-3\">\n" +
+                "\t\t\t\t<div class=\"chat-bubble chat-bubble--left\">\n" +
                 "\t\t\t\t\t" + message + "\n" +
                 "\t\t\t\t</div>\n" +
                 "\t\t\t\t</div>\n" +
