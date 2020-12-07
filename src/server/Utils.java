@@ -52,7 +52,17 @@ public class Utils {
 
     public static void writeJSONtoFile(User user)
     {
-        //First Employee
+        JSONParser jsonParser = new JSONParser();
+        JSONArray userList = null;
+
+        try (FileReader reader = new FileReader("login.json")) {
+            //Read JSON file
+            userList = (JSONArray) jsonParser.parse(reader);
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+
+
         JSONObject loginDetails = new JSONObject();
         loginDetails.put("Name", user.getName());
         loginDetails.put("Birthday", user.getBirthdate() + "");
@@ -67,13 +77,13 @@ public class Utils {
 
 
         //Add users to list
-        JSONArray loginList = new JSONArray();
-        loginList.add(loginObject);
+
+        userList.add(loginObject);
 
         //Write JSON file
         try (FileWriter file = new FileWriter("login.json")) {
 
-            file.write(loginList.toJSONString());
+            file.write(userList.toJSONString());
             file.flush();
 
         } catch (IOException e) {
@@ -86,12 +96,11 @@ public class Utils {
         JSONParser jsonParser = new JSONParser();
         User user;
 
-        try (FileReader reader = new FileReader("login.json"))
-        {
+        try (FileReader reader = new FileReader("login.json")) {
             //Read JSON file
             JSONArray userList = (JSONArray) jsonParser.parse(reader);
 
-            //Iterate over employee array
+            //Iterate over user array
             for( Object usr : userList ) {
 
                 JSONObject usrObject = (JSONObject) ((JSONObject) usr).get(mail);
