@@ -71,7 +71,6 @@ public class User {
         int i = 0;
         for (String pair: pairs){
             int idx = pair.indexOf("=");
-            //System.out.println(pair.substring(idx+1));
             userInfo[i] = pair.substring(idx+1);
             i++;
         }
@@ -82,25 +81,42 @@ public class User {
         this.password = userInfo[5];
         this.phone = userInfo[6];
         String date = userInfo[1];
-        String gender = userInfo[2];
-        String interest = userInfo[3];
-
-        switch (gender){
-            case "Male": this.gender = Gender.MALE; break;
-            case "Female": this.gender = Gender.FEMALE; break;
-            case "Other": this.gender = Gender.OTHER; break;
-            default: this.gender = null; break;
-        }
-        switch (interest){
-            case "Male": this.interest = Interest.MALE; break;
-            case "Female": this.interest = Interest.FEMALE; break;
-            case "Other": this.interest = Interest.BOTH; break;
-            default: this.interest = null; break;
-        }
+        this.gender = genderFromString(userInfo[2]);
+        this.interest = interestFromString(userInfo[3]);
 
         this.birthdate = new Date(Integer.parseInt(date.substring(10))-1900, Integer.parseInt(date.substring(5,7))-1, Integer.parseInt(date.substring(0,2)));
 
     }
+
+    public static Gender genderFromString(String gender) {
+        switch (gender){
+            case "MALE":
+            case "Male": return Gender.MALE;
+            case "FEMALE":
+            case "Female": return Gender.FEMALE;
+            case "OTHER":
+            case "Other": return Gender.OTHER;
+            default: break;
+        }
+
+        return null;
+    }
+
+    public static Interest interestFromString(String interest) {
+        switch (interest){
+            case "MALE":
+            case "Male":   return Interest.MALE;
+            case "FEMALE":
+            case "Female": return Interest.FEMALE;
+            case "OTHER":
+            case "Other":  return Interest.BOTH;
+            default: break;
+        }
+
+        return null;
+    }
+
+
 
     @Override
     public String toString() {
@@ -113,4 +129,5 @@ public class User {
                 "Phone: " + this.phone + "\n";
 
     }
+
 }

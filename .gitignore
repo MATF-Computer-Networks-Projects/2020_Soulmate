@@ -30,3 +30,6 @@ META-INF/*
 src/.idea/*
 src/out/*
 login.json
+
+# Test
+Test.java

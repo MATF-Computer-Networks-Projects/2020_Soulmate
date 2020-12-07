@@ -144,4 +144,17 @@ button {
   border: none;
 }
 
+div#chat-panel {
+  overflow: auto;
+  white-space: nowrap;
+  height: 550px;
+}
+
+div#chat-panel.no-gutters {
+  display: inline-block;
+}
+
+.header-title {
+  color: #1b1e21;
+}
 /*# sourceMappingURL=chat.css.map */

@@ -6,6 +6,7 @@ public class Request {
     private final String method;
     private final String fileRequested;
     private final String contentData;
+    private String address = null;
 
 
     public Request(String method
@@ -33,4 +34,8 @@ public class Request {
     public String getContentData() {
         return contentData;
     }
+
+    public  void setAddress(String address) { this.address = address; }
+
+    public String getAddress() { return address; }
 }

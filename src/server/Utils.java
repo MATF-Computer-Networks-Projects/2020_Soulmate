@@ -1,10 +1,13 @@
 package server;
 
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import server.core.Mediator;
 
 import java.io.*;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -53,18 +56,17 @@ public class Utils {
         JSONObject loginDetails = new JSONObject();
         loginDetails.put("Name", user.getName());
         loginDetails.put("Birthday", user.getBirthdate() + "");
-        loginDetails.put("Geneder", user.getGender() + "");
+        loginDetails.put("Gender", user.getGender() + "");
         loginDetails.put("Interest", user.getInterest() + "");
-        loginDetails.put("Email", user.getEmail());
         loginDetails.put("Password", user.getPassword());
         loginDetails.put("Phone", user.getPhone());
 
 
         JSONObject loginObject = new JSONObject();
-        loginObject.put("User", loginDetails);
+        loginObject.put(user.getEmail(), loginDetails);
 
 
-        //Add employees to list
+        //Add users to list
         JSONArray loginList = new JSONArray();
         loginList.add(loginObject);
 
@@ -80,9 +82,49 @@ public class Utils {
     }
 
 
+    public static User loadUserFromJSON(String mail, String password) {
+        JSONParser jsonParser = new JSONParser();
+        User user;
+
+        try (FileReader reader = new FileReader("login.json"))
+        {
+            //Read JSON file
+            JSONArray userList = (JSONArray) jsonParser.parse(reader);
+
+            //Iterate over employee array
+            for( Object usr : userList ) {
+
+                JSONObject usrObject = (JSONObject) ((JSONObject) usr).get(mail);
+
+                if(usrObject == null)
+                    continue;
+
+                if(usrObject.get("Password").equals((Object) password)) {
+                    user = new User(
+                            usrObject.get("Name").toString(),
+                            null,
+                            User.genderFromString(usrObject.get("Gender").toString()),
+                            User.interestFromString(usrObject.get("Interest").toString()),
+                            mail,
+                            password,
+                            usrObject.get("Phone").toString()
+                    );
+
+                    System.out.println("Return user:\n" + user);
+                    return user;
+                }
+            }
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public static String appendMessageSender(File file, String message) {
 
-        String newMsg = "<div class=\"row no-gutters\">\n" +
+        return "<div class=\"row no-gutters\">\n" +
                 "\t\t\t\t<div class=\"col-md-3 offset-md-9\">\n" +
                 "\t\t\t\t<div class=\"chat-bubble chat-bubble--right\">\n" +
                 "\t\t\t\t\t" + message + "\n" +
@@ -90,6 +132,5 @@ public class Utils {
                 "\t\t\t\t</div>\n" +
                 "\t\t\t</div>";
 
-        return newMsg;
     }
 }
