@@ -15,6 +15,7 @@ import server.form.User;
 
 import static server.GlobalData.*;
 
+
 public class Utils {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -50,8 +51,7 @@ public class Utils {
         }
     }
 
-    public static void writeJSONtoFile(User user)
-    {
+    public static void writeJSONtoFile(User user) {
         JSONParser jsonParser = new JSONParser();
         JSONArray userList = null;
         File loginFile = null;
@@ -64,8 +64,7 @@ public class Utils {
 
             // If does not exist, create json file with []
             // because it won't make it by itself
-            if(!loginFile.exists())
-            {
+            if (!loginFile.exists()) {
                 loginFile.createNewFile();
                 FileWriter tmpWriter = new FileWriter(loginFile);
                 tmpWriter.write("[]");
@@ -123,14 +122,14 @@ public class Utils {
             JSONArray userList = (JSONArray) jsonParser.parse(reader);
 
             //Iterate over user array
-            for( Object usr : userList ) {
+            for (Object usr : userList) {
 
                 JSONObject usrObject = (JSONObject) ((JSONObject) usr).get(mail);
 
-                if(usrObject == null)
+                if (usrObject == null)
                     continue;
 
-                if(usrObject.get("Password").equals((Object) password)) {
+                if (usrObject.get("Password").equals((Object) password)) {
                     user = new User(
                             usrObject.get("Name").toString(),
                             null,
@@ -175,5 +174,32 @@ public class Utils {
                 "\t\t\t\t</div>\n" +
                 "\t\t\t</div>";
 
+    }
+
+
+    public static boolean checkUserExistence(String mail) {
+        JSONParser jsonParser = new JSONParser();
+
+        try (FileReader reader = new FileReader("login.json")) {
+            //Read JSON file
+            JSONArray userList = (JSONArray) jsonParser.parse(reader);
+
+            //Iterate over user array
+            for (Object usr : userList) {
+
+                JSONObject usrObject = (JSONObject) ((JSONObject) usr).get(mail);
+
+                if (usrObject != null){
+                    System.out.println("USR FOUND");
+                    return true;
+                }
+
+            }
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println("USR NOT FOUND");
+        return false;
     }
 }

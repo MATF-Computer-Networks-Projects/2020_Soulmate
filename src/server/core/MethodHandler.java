@@ -72,13 +72,20 @@ public class MethodHandler{
         if(file.getParent().endsWith("signup")) {
 
             User usr = new User(contentData);
-            writeJSONtoFile(usr);
-            System.out.println(usr);
+            if(!checkUserExistence(usr.getEmail())){
+                writeJSONtoFile(usr);
+                System.out.println(usr);
 
-            // Using GET because of behaviour
-            methodGET(new File(WEB_ROOT, "chat/chat.html"), mediator);
+                // Using GET because of behaviour
+                methodGET(new File(WEB_ROOT, "chat/chat.html"), mediator);
 
-            Server.activeUsers.addUser(usr, address);
+                Server.activeUsers.addUser(usr, address);
+            }
+            else{
+                System.out.println("User already registered");
+
+                methodGET(new File(WEB_ROOT, "login/index.html"), mediator);
+            }
             return;
         }
 
@@ -108,7 +115,6 @@ public class MethodHandler{
         if(file.getParent().endsWith("chat")) {
 
             Message msg = new Message(contentData);
-
             Server.messages.add(msg);
 
             String content = getContentType(file.getName());
@@ -119,7 +125,6 @@ public class MethodHandler{
                     Message m = Server.messages.get(i);
                     if(m.getUser().equals(msg.getUser()))
                         continue;
-
                     allMsgs.append("\n" + appendMessageReceiver(m.getMessage()) );
                 }
             }
