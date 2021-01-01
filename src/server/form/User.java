@@ -2,20 +2,12 @@ package server.form;
 
 import java.util.Date;
 
-enum Gender {
-    MALE, FEMALE, OTHER
-}
-
-enum Interest {
-    MALE, FEMALE, BOTH
-}
-
 public class User {
 
     private final String name;
     private final Date birthdate;
     private final Gender gender;
-    private final Interest interest;
+    private final Gender interest;
     private final String email;
     private final String password;  // TODO will be independent class
     private final String phone;
@@ -33,7 +25,7 @@ public class User {
         return gender;
     }
 
-    public Interest getInterest() {
+    public Gender getInterest() {
         return interest;
     }
 
@@ -51,7 +43,7 @@ public class User {
 
     public User(String name
               , Date birthdate, Gender gender
-              , Interest interest, String email
+              , Gender interest, String email
               , String password, String phone) {
 
         this.name = name;
@@ -91,25 +83,25 @@ public class User {
     public static Gender genderFromString(String gender) {
         switch (gender){
             case "MALE":
-            case "Male": return Gender.MALE;
+            case "Male": return server.form.Gender.MALE;
             case "FEMALE":
-            case "Female": return Gender.FEMALE;
+            case "Female": return server.form.Gender.FEMALE;
             case "OTHER":
-            case "Other": return Gender.OTHER;
+            case "Other": return server.form.Gender.OTHER;
             default: break;
         }
 
         return null;
     }
 
-    public static Interest interestFromString(String interest) {
+    public static Gender interestFromString(String interest) {
         switch (interest){
             case "MALE":
-            case "Male":   return Interest.MALE;
+            case "Male":   return Gender.MALE;
             case "FEMALE":
-            case "Female": return Interest.FEMALE;
+            case "Female": return Gender.FEMALE;
             case "OTHER":
-            case "Other":  return Interest.BOTH;
+            case "Other":  return Gender.OTHER;
             default: break;
         }
 
